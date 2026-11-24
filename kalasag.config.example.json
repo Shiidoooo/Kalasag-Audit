@@ -1,0 +1,20 @@
+{
+  "_comment": "Copy this file to kalasag.config.json and edit it to enable the OPT-IN OTP rate-limit test. kalasag.config.json is gitignored because headers may contain API keys. The test triggers a SMALL, bounded burst of REAL OTP sends — only point it at an endpoint you OWN with a recipient you CONTROL.",
+
+  "otpTest": {
+    "url": "https://api-staging.example.com/api/v1/otp/send",
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "X-Api-Key": "YOUR_TEST_API_KEY_HERE"
+    },
+    "body": "{\"mobile\":\"{{RECIPIENT}}\"}",
+    "recipient": "09171234567",
+
+    "maxRequests": 4,
+
+    "_note_indicators": "Optional. Override these to match your endpoint's real responses so the test can tell a successful send from a throttle. Defaults cover common wording.",
+    "successIndicators": ["otp sent", "\"status\":\"ok\"", "success"],
+    "throttleIndicators": ["too many", "try again later", "rate limit", "cooldown", "please wait"]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "kalasag-audit",
+  "version": "2.0.0",
+  "description": "Kalasag Audit — Zero-dependency outside-in web security & posture auditor with CLI and local web UI",
+  "type": "module",
+  "bin": {
+    "kalasag": "./bin/kalasag.js",
+    "kalasag-ui": "./bin/kalasag-ui.js",
+    "webguard": "./bin/kalasag.js"
+  },
+  "scripts": {
+    "start": "node bin/kalasag-ui.js",
+    "ui": "node bin/kalasag-ui.js",
+    "cli": "node bin/kalasag.js",
+    "audit": "node bin/kalasag.js",
+    "test": "node --test"
+  },
+  "keywords": ["kalasag", "security", "auditor", "whitehat", "posture", "dast", "web-security"],
+  "author": "Kalasag Audit",
+  "license": "MIT"
+}

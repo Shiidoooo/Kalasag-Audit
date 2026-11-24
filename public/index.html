@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalasag Audit — Website Security &amp; Safety Checker</title>
+  <meta name="description" content="Kalasag Audit is a local-first, zero-dependency website security checker designed for clarity, accuracy, and zero false alarms.">
+  <link rel="icon" type="image/svg+xml" href="/assets/kalasag-mark.svg">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="ambient-backdrop" aria-hidden="true"></div>
+
+  <!-- Top Navigation Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#scanner" data-nav="scanner" aria-label="Kalasag Audit home">
+        <img class="brand-mark" src="/assets/kalasag-mark.svg" alt="" width="36" height="36">
+        <div class="brand-text">
+          <span class="brand-name">Kalasag <span class="brand-accent">Audit</span></span>
+          <span class="brand-sub">Website Security Checker</span>
+        </div>
+      </a>
+
+      <nav class="primary-nav" aria-label="Primary navigation">
+        <a href="#scanner" class="nav-link is-active" data-nav="scanner" aria-current="page">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4"/><circle cx="12" cy="12" r="2.5"/></svg>
+          <span>Scanner</span>
+        </a>
+        <a href="#history" class="nav-link" data-nav="history">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/></svg>
+          <span>History</span>
+          <span class="nav-badge" id="history-count-badge">0</span>
+        </a>
+        <a href="#about" class="nav-link" data-nav="about">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L4 5v6c0 5.5 3.4 10.7 8 12 4.6-1.3 8-6.5 8-12V5l-8-3z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>About</span>
+        </a>
+      </nav>
+
+      <div class="header-actions">
+        <span class="engine-pill" id="engine-status" title="Kalasag Audit engine status">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span class="engine-pill-label" id="engine-status-label">Local Ready</span>
+        </span>
+        <button type="button" class="icon-btn" id="theme-toggle" aria-label="Switch color theme" title="Switch light or dark theme">
+          <svg class="icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          <svg class="icon theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="main-content">
+
+    <!-- =================================================================== -->
+    <!-- VIEW 1: AUDIT SCANNER WORKSPACE                                     -->
+    <!-- =================================================================== -->
+    <section id="view-scanner" class="view-section is-active" aria-labelledby="scanner-heading">
+      <div class="container">
+
+        <!-- Hero / Command Deck -->
+        <div class="command-deck" id="command-deck">
+          <div class="command-deck-main">
+            <div class="eyebrow">
+              <span class="eyebrow-dot" aria-hidden="true"></span>
+              <span id="hero-eyebrow-text">Private Local Scanner &bull; 16 Security Checks</span>
+            </div>
+            <h1 id="scanner-heading" class="hero-title">
+              Check any website for security gaps &mdash; <span class="text-gold">without false alarms</span>.
+            </h1>
+            <p class="hero-subtitle">
+              Paste a website, API, or <code>localhost</code> link below. Kalasag Audit checks SSL certificates, security headers, cookies, leaked files (<code>.env</code>, <code>.git</code>), outdated scripts, and DNS protection, then gives you a clear grade and exact fixes.
+            </p>
+
+            <!-- Audit Input Form -->
+            <form id="audit-form" class="audit-form" novalidate>
+              <div class="form-group">
+                <label for="target-url" class="field-label">
+                  Website URL to Check <span class="required-mark" aria-hidden="true">*</span>
+                </label>
+                <div class="input-action-row">
+                  <div class="input-wrapper">
+                    <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    <input
+                      type="text"
+                      id="target-url"
+                      name="url"
+                      class="url-input"
+                      placeholder="https://example.com or http://localhost:3000"
+                      autocomplete="url"
+                      spellcheck="false"
+                      required
+                      aria-describedby="url-help url-error"
+                    >
+                  </div>
+                  <button type="submit" id="run-audit-btn" class="btn btn-primary btn-lg">
+                    <span class="btn-spinner" aria-hidden="true"></span>
+                    <svg class="icon btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L4 5v6c0 5.5 3.4 10.7 8 12 4.6-1.3 8-6.5 8-12V5l-8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+                    <span class="btn-label">Scan Website</span>
+                  </button>
+                </div>
+                <p id="url-error" class="field-error" role="alert" hidden></p>
+                <p id="url-help" class="field-help">
+                  Accepts <code>http://</code>, <code>https://</code>, or plain domains. Only scan websites or local apps you own or have permission to test.
+                </p>
+              </div>
+
+              <!-- Quick Presets & Crawl Depth -->
+              <div class="preset-bar">
+                <span class="preset-label">Try an example:</span>
+                <button type="button" class="preset-chip" id="preset-self" data-preset="http://127.0.0.1:3847">Test Kalasag Itself</button>
+                <button type="button" class="preset-chip" id="preset-alt" data-preset="https://developer.mozilla.org">developer.mozilla.org</button>
+                <button type="button" class="preset-chip" data-preset="https://example.com">example.com</button>
+                <button type="button" class="preset-chip" data-preset="https://github.com">github.com</button>
+              </div>
+
+              <div class="crawl-scope-bar">
+                <label for="crawl-max-pages" class="preset-label">Site Map Crawl Limit:</label>
+                <select id="crawl-max-pages" class="select-input select-sm">
+                  <option value="25">Standard (up to 25 pages)</option>
+                  <option value="50" selected>Deep Crawl (up to 50 pages)</option>
+                  <option value="100" id="crawl-opt-100">Full Local Map (up to 100 pages)</option>
+                </select>
+                <span class="field-help crawl-scope-note">Recursively crawls same-origin links, sitemaps &amp; JS routes (depth up to 3).</span>
+              </div>
+
+              <!-- Simple, Guided Optional OTP Spam-Protection Check -->
+              <div class="otp-drawer" id="otp-drawer">
+                <button type="button" class="otp-drawer-toggle" id="otp-toggle-btn" aria-expanded="false" aria-controls="otp-panel">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  <span class="otp-toggle-copy">
+                    <strong>Optional: Check OTP / Verification Code Spam Protection</strong>
+                    <span class="otp-toggle-hint">Skip this for normal website scans. Only needed if your site sends SMS or email OTP codes.</span>
+                  </span>
+                  <span class="pill pill-muted" id="otp-status-pill">Off</span>
+                  <svg class="icon chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+
+                <div id="otp-panel" class="otp-panel" hidden>
+                  <div class="otp-intro-box">
+                    <p class="otp-intro-title">What does this optional check do?</p>
+                    <p class="otp-intro-text">
+                      It sends a few real test OTP requests (one by one, max 6) to <strong>your own phone or email</strong> to see if your server properly blocks rapid retries (prevents SMS/email flooding). It stops immediately the moment your server blocks or slows down a request.
+                    </p>
+                  </div>
+
+                  <!-- Clean On/Off Switch -->
+                  <label class="switch-row">
+                    <input type="checkbox" id="otp-enabled" class="switch-input">
+                    <span class="switch-track" aria-hidden="true"></span>
+                    <span class="switch-text">Turn on OTP spam-protection check for this scan</span>
+                  </label>
+
+                  <!-- Guided Friendly Fields (hidden until toggled ON) -->
+                  <div id="otp-fields" class="otp-guided-stack" hidden>
+                    <div class="otp-step-grid">
+                      <div class="form-group">
+                        <label for="otp-url" class="field-label">1. Your "Send OTP" API URL <span class="required-mark">*</span></label>
+                        <input type="url" id="otp-url" class="text-input mono" placeholder="https://your-api.com/api/send-otp">
+                        <span class="field-help">Paste the exact API link that sends the code (not the homepage). Tip: find it in Chrome DevTools &rarr; Network tab when clicking "Send OTP".</span>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="otp-recipient" class="field-label">2. Your Own Phone or Email <span class="required-mark">*</span></label>
+                        <input type="text" id="otp-recipient" class="text-input" placeholder="09171234567 or you@company.com">
+                        <span class="field-help">Must be a phone number or inbox you personally control.</span>
+                      </div>
+                    </div>
+
+                    <div class="otp-step-grid">
+                      <div class="form-group">
+                        <span class="field-label" id="otp-field-label">3. What field name does your API expect?</span>
+                        <div class="segmented-group" role="radiogroup" aria-labelledby="otp-field-label">
+                          <button type="button" class="seg-btn is-active" data-otp-field="mobile" aria-pressed="true">mobile</button>
+                          <button type="button" class="seg-btn" data-otp-field="phone" aria-pressed="false">phone</button>
+                          <button type="button" class="seg-btn" data-otp-field="email" aria-pressed="false">email</button>
+                          <button type="button" class="seg-btn" data-otp-field="custom" aria-pressed="false">Custom JSON</button>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <span class="field-label" id="otp-count-label">4. How many test sends before stopping?</span>
+                        <div class="segmented-group" role="radiogroup" aria-labelledby="otp-count-label">
+                          <button type="button" class="seg-btn" data-otp-max="3" aria-pressed="false">3 sends</button>
+                          <button type="button" class="seg-btn is-active" data-otp-max="4" aria-pressed="true">4 sends (Recommended)</button>
+                          <button type="button" class="seg-btn" data-otp-max="6" aria-pressed="false">6 max</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Plain-English Preview of What Will Be Sent -->
+                    <div class="otp-preview-bar">
+                      <span class="otp-preview-label">Test preview:</span>
+                      <code id="otp-preview-text">POST {"mobile":"0917..."} &mdash; stops immediately once blocked</code>
+                    </div>
+
+                    <!-- Collapsible Developer Overrides (API Keys / Custom Headers / Custom JSON) -->
+                    <div class="otp-extra-wrap">
+                      <button type="button" class="text-toggle-btn" id="otp-extra-toggle" aria-expanded="false" aria-controls="otp-extra-panel">
+                        <span>Need an API key, custom headers, or custom JSON body?</span>
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                      </button>
+
+                      <div id="otp-extra-panel" class="otp-extra-panel" hidden>
+                        <div class="otp-step-grid">
+                          <div class="form-group">
+                            <label for="otp-method" class="field-label">HTTP Method</label>
+                            <select id="otp-method" class="select-input">
+                              <option value="POST" selected>POST (Standard)</option>
+                              <option value="PUT">PUT</option>
+                              <option value="GET">GET</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="otp-api-key" class="field-label">Optional API Key / Bearer Token</label>
+                            <input type="text" id="otp-api-key" class="text-input mono" placeholder="Bearer eyJ... or X-Api-Key value">
+                            <span class="field-help">Leave blank if the endpoint is public.</span>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="otp-headers" class="field-label">Extra Headers (JSON)</label>
+                          <textarea id="otp-headers" class="textarea-input mono" rows="2">{"Content-Type": "application/json"}</textarea>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="otp-body" class="field-label">Custom Request Body (use <code>{{RECIPIENT}}</code> where the phone/email goes)</label>
+                          <textarea id="otp-body" class="textarea-input mono" rows="2">{"mobile": "{{RECIPIENT}}"}</textarea>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Plain-English Authorization Confirmation -->
+                    <label class="checkbox-row checkbox-confirm">
+                      <input type="checkbox" id="otp-confirm">
+                      <span>I confirm I own or have permission to test this OTP API and control the phone/email entered above.</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Brand Visual Card (shown before first scan) -->
+          <div class="command-deck-visual" id="deck-visual">
+            <div class="emblem-showcase">
+              <div class="emblem-frame">
+                <img src="/assets/kalasag-logo.jpg" alt="Kalasag Audit traditional shield and precision optical lens emblem" width="260" height="260">
+              </div>
+              <div class="emblem-caption">
+                <div class="emblem-stat-grid">
+                  <div class="emblem-stat">
+                    <span class="stat-value">16</span>
+                    <span class="stat-label">Checks</span>
+                  </div>
+                  <div class="emblem-stat">
+                    <span class="stat-value">Local</span>
+                    <span class="stat-label">100% Private</span>
+                  </div>
+                  <div class="emblem-stat">
+                    <span class="stat-value">A+&ndash;F</span>
+                    <span class="stat-label">Fair Score</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simple 3-Step Guide (shown only on clean start screen before any scan) -->
+        <section id="how-it-works-strip" class="how-strip" aria-label="How Kalasag Audit works">
+          <div class="how-card">
+            <span class="how-step mono">Step 1</span>
+            <h2 class="how-title">Enter Any URL</h2>
+            <p class="how-desc">Works with live websites (<code>https://</code>), APIs, or local projects like <code>http://localhost:3000</code>.</p>
+          </div>
+          <div class="how-card">
+            <span class="how-step mono">Step 2</span>
+            <h2 class="how-title">Smart 16-Point Inspection</h2>
+            <p class="how-desc">Checks SSL, security headers, cookies, leaked files, and DNS &mdash; verifying findings to prevent false alarms.</p>
+          </div>
+          <div class="how-card">
+            <span class="how-step mono">Step 3</span>
+            <h2 class="how-title">Clear Grade &amp; Fixes</h2>
+            <p class="how-desc">Get an easy A+&ndash;F score, copy-paste fixes for every issue, and download a Markdown or PDF report.</p>
+          </div>
+        </section>
+
+        <!-- Global Error Banner -->
+        <div id="audit-error-banner" class="error-banner" role="alert" hidden>
+          <div class="error-banner-body">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <div>
+              <h2 class="error-banner-title">Scan Could Not Complete</h2>
+              <p id="audit-error-message" class="error-banner-message"></p>
+            </div>
+          </div>
+          <button type="button" id="retry-audit-btn" class="btn btn-secondary btn-sm">Try Again</button>
+        </div>
+
+        <!-- Loading / Live Telemetry Panel -->
+        <div id="scan-loading-panel" class="scan-loading-panel" aria-live="polite" hidden>
+          <div class="radar-wrap" aria-hidden="true">
+            <div class="radar-ring radar-ring-1"></div>
+            <div class="radar-ring radar-ring-2"></div>
+            <div class="radar-sweep"></div>
+            <img class="radar-emblem" src="/assets/kalasag-mark.svg" alt="" width="44" height="44">
+          </div>
+          <div class="loading-info">
+            <div class="loading-header-row">
+              <h2 class="loading-title">Scanning <span id="loading-target-label" class="mono text-gold"></span></h2>
+              <span id="loading-timer" class="mono timer-badge">0.0s</span>
+            </div>
+            <p class="loading-subtitle">Checking SSL, headers, cookies, exposed files, scripts, and domain settings...</p>
+            <ol class="phase-list" id="phase-list">
+              <li class="phase-item is-active" data-phase="1">
+                <span class="phase-indicator" aria-hidden="true"></span>
+                <span><strong>Step 1:</strong> Connecting to target &amp; inspecting response headers and cookies</span>
+              </li>
+              <li class="phase-item" data-phase="2">
+                <span class="phase-indicator" aria-hidden="true"></span>
+                <span><strong>Step 2:</strong> Running parallel SSL, CORS, HTTP methods, leaked files, scripts &amp; DNS checks</span>
+              </li>
+              <li class="phase-item" data-phase="3">
+                <span class="phase-indicator" aria-hidden="true"></span>
+                <span><strong>Step 3:</strong> Calculating your security grade and preparing recommended fixes</span>
+              </li>
+            </ol>
+            <div class="loading-actions">
+              <button type="button" id="cancel-audit-btn" class="btn btn-secondary btn-sm">Cancel Scan</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Audit Results Dashboard -->
+        <div id="results-dashboard" class="results-dashboard" aria-live="polite" hidden>
+
+          <!-- Executive Scorecard Hero -->
+          <div class="scorecard-hero">
+            <div class="score-gauge-block">
+              <div class="gauge-container">
+                <svg class="score-gauge-svg" viewBox="0 0 160 160" aria-hidden="true">
+                  <circle class="gauge-track" cx="80" cy="80" r="66"/>
+                  <circle class="gauge-progress" id="gauge-arc" cx="80" cy="80" r="66" stroke-dasharray="414.69" stroke-dashoffset="414.69"/>
+                </svg>
+                <div class="gauge-center">
+                  <span class="gauge-grade" id="result-grade">&mdash;</span>
+                  <span class="gauge-score"><span id="result-score">0</span><span class="gauge-max">/100</span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="scorecard-meta">
+              <div class="meta-top-row">
+                <span class="meta-badge" id="result-host-type">Public Website</span>
+                <span class="meta-checks-pill mono" id="result-probes-count"></span>
+                <span class="meta-time" id="result-scan-time"></span>
+                <span class="meta-duration mono" id="result-duration"></span>
+              </div>
+              <h2 class="result-target-url mono" id="result-target-url"></h2>
+              <p class="result-verdict-summary" id="result-verdict-summary"></p>
+
+              <!-- Grade Cap Notice -->
+              <div id="grade-cap-banner" class="grade-cap-banner" hidden>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <span id="grade-cap-text"></span>
+              </div>
+
+              <!-- Export & Utility Action Bar -->
+              <div class="export-bar">
+                <button type="button" class="btn btn-primary btn-sm" id="export-pdf-btn">
+                  <span class="btn-spinner" aria-hidden="true"></span>
+                  <svg class="icon btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
+                  <span class="btn-label">Save as PDF</span>
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" id="preview-report-btn">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  <span>Preview Report</span>
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" id="copy-ai-btn">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  <span>Copy for AI</span>
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" id="export-md-btn">
+                  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  <span>Markdown (.md)</span>
+                </button>
+                <button type="button" class="btn btn-ghost btn-sm" id="export-json-btn">JSON</button>
+                <button type="button" class="btn btn-ghost btn-sm" id="rescan-current-btn">Re-Scan</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Severity Distribution Strip (Interactive Filters) -->
+          <div class="severity-strip" id="severity-strip" role="group" aria-label="Filter results by priority">
+            <!-- Populated dynamically by app.js -->
+          </div>
+
+          <!-- Security Checklist by Area -->
+          <section class="dashboard-block" aria-labelledby="modules-heading">
+            <div class="block-header">
+              <div>
+                <h3 id="modules-heading" class="block-title">Security Checklist by Area</h3>
+                <p class="block-subtitle">Click any area below to view only its results.</p>
+              </div>
+              <button type="button" class="btn btn-ghost btn-sm" id="clear-filters-btn" hidden>Show All Results</button>
+            </div>
+            <div class="module-grid" id="module-grid"></div>
+          </section>
+
+          <!-- Discovered Site Map & JS API Routes -->
+          <section class="dashboard-block" id="discovered-routes-block" aria-labelledby="routes-heading" hidden>
+            <div class="block-header">
+              <div>
+                <h3 id="routes-heading" class="block-title">Site Map &amp; Automatic Multi-Page Audit</h3>
+                <p class="block-subtitle" id="discovered-routes-summary"></p>
+              </div>
+              <div class="explorer-controls" id="routes-filter-wrap" hidden>
+                <label class="sr-only" for="routes-search">Filter discovered pages</label>
+                <input type="search" id="routes-search" class="search-input" placeholder="Filter audited pages...">
+              </div>
+            </div>
+            <div class="discovered-card">
+              <div id="discovered-pages-list" class="discovered-pages-list"></div>
+              <div id="api-routes-wrap" class="api-routes-wrap" hidden>
+                <div class="api-routes-label">API / App Routes Extracted from JavaScript</div>
+                <div id="api-routes-chips" class="route-chip-list"></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Findings Explorer -->
+          <section class="dashboard-block" aria-labelledby="findings-heading">
+            <div class="block-header">
+              <div>
+                <h3 id="findings-heading" class="block-title">What We Found &amp; How to Fix It</h3>
+                <p class="block-subtitle" id="findings-count-label"></p>
+              </div>
+              <div class="explorer-controls">
+                <label class="sr-only" for="finding-search">Search findings</label>
+                <input type="search" id="finding-search" class="search-input" placeholder="Search findings (e.g. cookie, CSP, SSL)...">
+
+                <label class="sr-only" for="category-filter">Filter by area</label>
+                <select id="category-filter" class="select-input">
+                  <option value="ALL">All Areas</option>
+                </select>
+
+                <label class="sr-only" for="sort-filter">Sort findings</label>
+                <select id="sort-filter" class="select-input">
+                  <option value="severity">Sort: Most Urgent First</option>
+                  <option value="impact">Sort: Biggest Score Impact</option>
+                  <option value="category">Sort: Group by Area</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="findings-list" class="findings-list"></div>
+          </section>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VIEW 2: SCAN HISTORY                                                -->
+    <!-- =================================================================== -->
+    <section id="view-history" class="view-section" aria-labelledby="history-heading" hidden>
+      <div class="container">
+        <div class="page-header-row">
+          <div>
+            <div class="eyebrow">
+              <span class="eyebrow-dot" aria-hidden="true"></span>
+              <span id="history-eyebrow-text">Saved Locally on Your Computer</span>
+            </div>
+            <h1 id="history-heading" class="page-title">Scan History</h1>
+            <p class="page-subtitle">Reopen any past scan to compare your security grade after making fixes, or re-scan a site with one click.</p>
+          </div>
+          <div class="page-header-actions">
+            <button type="button" class="btn btn-secondary btn-sm" id="refresh-history-btn">Refresh</button>
+            <button type="button" class="btn btn-danger btn-sm" id="clear-history-btn" disabled>Clear All History</button>
+          </div>
+        </div>
+
+        <div id="history-empty" class="empty-state" hidden>
+          <img src="/assets/kalasag-mark.svg" alt="" class="empty-state-icon" width="56" height="56">
+          <h2>No Scans Saved Yet</h2>
+          <p id="history-empty-text">Run your first website scan from the Scanner tab. Kalasag Audit automatically saves your recent reports for quick comparison.</p>
+          <button type="button" class="btn btn-primary" data-nav="scanner">Go to Scanner</button>
+        </div>
+
+        <div id="history-table-wrap" class="table-card" hidden>
+          <div class="table-scroll">
+            <table class="history-table">
+              <thead>
+                <tr>
+                  <th scope="col">Website Scanned</th>
+                  <th scope="col">Grade</th>
+                  <th scope="col">Score</th>
+                  <th scope="col">Summary</th>
+                  <th scope="col">Date</th>
+                  <th scope="col" class="col-actions">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="history-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VIEW 3: ABOUT & METHODOLOGY                                         -->
+    <!-- =================================================================== -->
+    <section id="view-about" class="view-section" aria-labelledby="about-heading" hidden>
+      <div class="container">
+
+        <!-- Editorial Hero Showcase with Generated Artwork -->
+        <div class="about-hero">
+          <div class="about-hero-media">
+            <img src="/assets/kalasag-hero.jpg" alt="Kalasag Audit luminous obsidian and heritage gold shield inspecting encrypted web traffic beams" class="about-hero-img" width="1280" height="720">
+            <div class="about-hero-scrim" aria-hidden="true"></div>
+          </div>
+          <div class="about-hero-content">
+            <div class="eyebrow">
+              <span class="eyebrow-dot" aria-hidden="true"></span>
+              <span>The Story Behind the Shield</span>
+            </div>
+            <h1 id="about-heading" class="about-hero-title">About <span class="text-gold">Kalasag Audit</span></h1>
+            <p class="about-hero-lead">
+              Named after the traditional Filipino <em>kalasag</em> &mdash; a carved hardwood battle shield built to protect its bearer &mdash; <strong>Kalasag Audit</strong> is a website security checker that finds real vulnerabilities and misconfigurations without flooding you with false alarms.
+            </p>
+          </div>
+        </div>
+
+        <!-- Brand Identity & Core Principles -->
+        <div class="about-split-grid">
+          <article class="card about-brand-card">
+            <div class="about-logo-stage">
+              <img src="/assets/kalasag-logo.jpg" alt="Kalasag Audit brand emblem combining traditional Filipino Kalasag shield with optical lens" width="220" height="220">
+            </div>
+            <h2 class="card-title">Why "Kalasag Audit"?</h2>
+            <p class="card-body">
+              Most free security scanners overwhelm developers with false warnings &mdash; flagging safe Apache headers, mistaking normal 404 pages for leaked <code>.env</code> files, or panicking over blocked IIS headers.
+            </p>
+            <p class="card-body">
+              <strong>Kalasag Audit</strong> combines the heritage concept of a strong outer shield with accurate, verified testing: every warning is double-checked against real web standards and backed by regression tests.
+            </p>
+          </article>
+
+          <div class="pillars-grid">
+            <article class="card pillar-card">
+              <span class="pillar-num mono">01</span>
+              <h3>Zero External Dependencies</h3>
+              <p>Runs purely on built-in Node.js tools. Fast to launch, lightweight, and completely self-contained.</p>
+            </article>
+            <article class="card pillar-card">
+              <span class="pillar-num mono">02</span>
+              <h3>100% Local &amp; Private</h3>
+              <p>Runs right on your own computer (<code>127.0.0.1</code>). Safely test <code>localhost</code> apps and staging servers without sending data to the cloud.</p>
+            </article>
+            <article class="card pillar-card">
+              <span class="pillar-num mono">03</span>
+              <h3>Verified Findings, Not Guesses</h3>
+              <p>Tests actually confirm whether files can be written or deleted, ignore HTML 404 pages, and clean up after themselves.</p>
+            </article>
+            <article class="card pillar-card">
+              <span class="pillar-num mono">04</span>
+              <h3>Fair &amp; Honest Grading</h3>
+              <p>Small minor issues won't ruin a secure site's score, while real critical leaks always cap the grade until fixed.</p>
+            </article>
+          </div>
+        </div>
+
+        <!-- Multi-Layered Defense Visual + Methodology -->
+        <section class="about-layers-section card" aria-labelledby="layers-heading">
+          <div class="layers-grid">
+            <div class="layers-media">
+              <img src="/assets/kalasag-layers.jpg" alt="Isometric translucent glass defense layers illuminated by a vertical golden inspection beam" width="1280" height="720" loading="lazy">
+            </div>
+            <div class="layers-copy">
+              <div class="eyebrow">
+                <span class="eyebrow-dot" aria-hidden="true"></span>
+                <span>How It Inspects a Website</span>
+              </div>
+              <h2 id="layers-heading" class="section-title">Five Security Layers Checked in Under Two Seconds</h2>
+              <p class="card-body">
+                Every scan inspects your website from the outside in &mdash; just like a security researcher would &mdash; without touching your database or crashing your server.
+              </p>
+              <ul class="layers-checklist">
+                <li><strong>Layer 1 &mdash; Domain &amp; Email (DNS):</strong> Checks SPF, DMARC, CAA, MX, DKIM, and dangling subdomains that attackers could hijack.</li>
+                <li><strong>Layer 2 &mdash; Connection &amp; SSL:</strong> Verifies HTTPS redirects, modern TLS 1.2/1.3 encryption, strong ciphers, and valid certificate expiry dates.</li>
+                <li><strong>Layer 3 &mdash; Browser Protection Headers:</strong> Inspects HSTS, Content Security Policy (CSP), Clickjacking protection, MIME-sniffing defense, and Referrer rules.</li>
+                <li><strong>Layer 4 &mdash; Sessions &amp; Access Rules:</strong> Reviews cookie security flags (<code>Secure</code>, <code>HttpOnly</code>, <code>SameSite</code>), CORS rules, and dangerous HTTP methods.</li>
+                <li><strong>Layer 5 &mdash; Leaked Files &amp; Frontend Scripts:</strong> Safely checks for accidentally public <code>.git</code> or <code>.env</code> files, mixed HTTP content, outdated JS libraries, Open Redirects, and optional OTP spam protection.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Full 12-Module Coverage Table -->
+        <section class="dashboard-block" aria-labelledby="coverage-heading">
+          <div class="block-header">
+            <div>
+              <h2 id="coverage-heading" class="block-title">Everything Kalasag Audit Checks</h2>
+              <p class="block-subtitle">All 16 built-in security modules (14 in Cloud mode + 2 local-only active modules) and how each prevents false alarms.</p>
+            </div>
+          </div>
+          <div class="table-card">
+            <div class="table-scroll">
+              <table class="coverage-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Security Area</th>
+                    <th scope="col">What It Checks</th>
+                    <th scope="col">False-Alarm Safeguards</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Transport Security</strong></td>
+                    <td>Automatic HTTP &rarr; HTTPS redirect</td>
+                    <td>Understands <code>localhost</code> and private IPs automatically</td>
+                  </tr>
+                  <tr>
+                    <td><strong>SSL / TLS Certificate</strong></td>
+                    <td>Expiry date, issuer, old TLS 1.0/1.1, weak ciphers, trust/mismatch, weak RSA keys</td>
+                    <td>Clean connection teardown avoids fake network reset errors</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Security Headers</strong></td>
+                    <td>HSTS, CSP, X-Frame-Options, <code>nosniff</code>, Referrer-Policy, Permissions-Policy, COOP</td>
+                    <td>Understands CSP fallback rules, duplicate headers, and compliant <code>Server: Apache</code></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Cookie Security</strong></td>
+                    <td><code>Secure</code>, <code>HttpOnly</code>, <code>SameSite</code>, and <code>__Host-</code>/<code>__Secure-</code> prefixes</td>
+                    <td>Skips logout deletion cookies and client-side analytics cookies (<code>_ga</code>)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>HTTP Methods</strong></td>
+                    <td><code>OPTIONS</code>, active <code>TRACE</code>, unauthenticated <code>PUT</code> and <code>DELETE</code></td>
+                    <td>Verifies actual file storage before flagging; ignores inert IIS headers</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Access Control (CORS)</strong></td>
+                    <td>Unsafe cross-origin sharing that exposes logged-in user data</td>
+                    <td>Follows OWASP A01 / CWE-942</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Exposed Files &amp; APIs</strong></td>
+                    <td><code>.git</code>, <code>.env</code>, <code>phpinfo.php</code>, Spring Actuator, Swagger, GraphQL, <code>security.txt</code></td>
+                    <td>Checks inside app subfolders (e.g. <code>/app/</code>) and rejects HTML 404 fallback pages</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Frontend &amp; Scripts</strong></td>
+                    <td>Mixed HTTP resources, missing Subresource Integrity (SRI), exposed JS keys</td>
+                    <td>Ignores HTML comments and CDN services where SRI is impossible (like Google Fonts)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Outdated Libraries</strong></td>
+                    <td>Old vulnerable jQuery, Bootstrap, and end-of-life AngularJS 1.x</td>
+                    <td>Reads real filenames and official license headers only</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Open Redirects</strong></td>
+                    <td>Checks if redirect parameters can send users to phishing sites</td>
+                    <td>Uses a harmless reserved <code>.example</code> address and never follows redirects</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Subdomain Takeover</strong></td>
+                    <td>Dangling CNAME records pointing to deleted cloud hosting accounts</td>
+                    <td>Confirms with each provider's specific unclaimed-page signature</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Site Discovery &amp; Crawl</strong></td>
+                    <td>Bounded same-origin crawl (links, <code>robots.txt</code>, <code>sitemap.xml</code>), Katana-style JS API route extraction &amp; subpage header drift</td>
+                    <td>Stays strictly same-origin, skips logout/destructive links, and caps page count for speed</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Form &amp; Auth Hygiene</strong></td>
+                    <td>Checks discovered forms for missing anti-CSRF tokens on <code>POST</code> forms, plain-HTTP password inputs, and cleartext form actions</td>
+                    <td>Ignores JS-handled forms without explicit <code>method="post"</code>; treats local HTTP dev logins as informational</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Exposed Services (Local)</strong></td>
+                    <td>Active TCP reachability probe of MySQL, PostgreSQL, MongoDB, Redis, MSSQL, Elasticsearch, Memcached, CouchDB &amp; RDP</td>
+                    <td>Auto-disabled on public/Vercel mode; treats loopback listeners as informational advisory</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Injection SQLi / XSS (Local)</strong></td>
+                    <td>Baseline-compared error-based SQLi and reflected XSS across GET parameters on the target URL &amp; crawled subpage forms</td>
+                    <td>GET-only, non-destructive, per-parameter baseline prevents false alarms; auto-disabled in public mode</td>
+                  </tr>
+                  <tr>
+                    <td><strong>DNS, Email &amp; Optional OTP</strong></td>
+                    <td>SPF, DMARC, CAA, MX, DKIM, plus optional bounded OTP spam-protection check</td>
+                    <td>Checks parent domains for <code>www</code>; OTP test is local-only, opt-in, and hard-capped at 6 sends</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Scoring & Grade Ceilings + Ethical Charter -->
+        <div class="about-bottom-grid">
+          <article class="card">
+            <h2 class="card-title">How Grades Work</h2>
+            <p class="card-body">
+              Minor issues have diminishing point deductions so small cosmetic notes never ruin a strong site, while serious risks always cap your maximum grade until fixed:
+            </p>
+            <div class="ceiling-list">
+              <div class="ceiling-row"><span class="sev-badge sev-critical">CRITICAL</span><span>Fix immediately &bull; Caps grade at <strong>D (max 40)</strong></span></div>
+              <div class="ceiling-row"><span class="sev-badge sev-high">HIGH</span><span>High priority &bull; Caps grade at <strong>B (max 84)</strong></span></div>
+              <div class="ceiling-row"><span class="sev-badge sev-medium">MEDIUM</span><span>Recommended fix &bull; Caps grade at <strong>A (max 94)</strong></span></div>
+              <div class="ceiling-row"><span class="sev-badge sev-low">LOW</span><span>Good polish &bull; Minor point adjustment, no grade cap</span></div>
+            </div>
+          </article>
+
+          <article class="card">
+            <h2 class="card-title">Ethical &amp; Safe Use Charter</h2>
+            <p class="card-body">
+              Kalasag Audit is built strictly for white-hat security checks, pre-launch QA, and helping teams protect their own websites.
+            </p>
+            <ul class="charter-list">
+              <li><strong>Only Scan Authorized Sites:</strong> Test apps you own, staging environments, or programs where you have explicit permission.</li>
+              <li><strong>Safe &amp; Non-Destructive:</strong> Never runs destructive attacks, SQL injection, or password guessing.</li>
+              <li><strong>Share Fixes Privately:</strong> Use the Markdown or PDF export to hand clear remediation steps directly to developers.</li>
+            </ul>
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="/assets/kalasag-mark.svg" alt="" width="22" height="22">
+        <span><strong>Kalasag Audit</strong> v2.0 &mdash; Local Website Security Checker</span>
+      </div>
+      <div class="footer-links">
+        <a href="#scanner" data-nav="scanner">Scanner</a>
+        <a href="#history" data-nav="history">History</a>
+        <a href="#about" data-nav="about">About</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Accessible Confirmation Dialog for Clearing History -->
+  <dialog id="confirm-dialog" class="confirm-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-desc">
+    <div class="dialog-content">
+      <h2 id="dialog-title" class="dialog-title">Clear All Saved History?</h2>
+      <p id="dialog-desc" class="dialog-desc">This permanently removes all saved local scan reports from <code>.kalasag-history.json</code>. This cannot be undone.</p>
+      <div class="dialog-actions">
+        <button type="button" class="btn btn-secondary" id="dialog-cancel-btn">Keep History</button>
+        <button type="button" class="btn btn-danger" id="dialog-confirm-btn">Delete All History</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

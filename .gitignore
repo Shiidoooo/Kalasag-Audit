@@ -1,0 +1,9 @@
+node_modules/
+.vercel/
+webguard-report-*.md
+kalasag-report-*.md
+webguard.config.json
+kalasag.config.json
+.kalasag-history.json
+test-reports/
+.DS_Store
