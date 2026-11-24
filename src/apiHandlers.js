@@ -23,7 +23,7 @@ const MAX_AUDIT_BODY_BYTES = 64 * 1024;   // 64 KB for /api/audit
 const MAX_EXPORT_BODY_BYTES = 512 * 1024; // 512 KB for /api/export/* (full scan reports)
 const MAX_HISTORY_ITEMS = 30;
 const LOCAL_AUDIT_TIMEOUT_MS = 60_000;
-const PUBLIC_AUDIT_TIMEOUT_MS = 22_000;
+const PUBLIC_AUDIT_TIMEOUT_MS = 48_000;
 
 export const SECURITY_HEADERS = {
   'Content-Security-Policy':
@@ -389,9 +389,9 @@ export async function handleAudit(req, res, ctx, requestId = crypto.randomUUID()
     otpConfig = body.otpTest;
   }
 
-  // Clamp optional crawl page limit safely per deployment mode.
-  const maxAllowedPages = ctx.publicMode ? 25 : 100;
-  const defaultPages = ctx.publicMode ? 25 : 50;
+  // Clamp optional crawl page limit safely (up to 100 pages in both local and cloud mode).
+  const maxAllowedPages = 100;
+  const defaultPages = 50;
   const requestedPages = Number(body.maxPages);
   const maxPages = Number.isFinite(requestedPages) && requestedPages >= 1
     ? Math.min(maxAllowedPages, Math.floor(requestedPages))

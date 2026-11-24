@@ -411,14 +411,14 @@ export async function crawlSameOriginSite({
   rootHtml = '',
   publicMode = false,
   dnsLookup,
-  maxPages = publicMode ? 25 : 50,
-  maxDepth = publicMode ? 2 : 3,
-  concurrency = publicMode ? 6 : 8,
-  timeBudgetMs = publicMode ? 6500 : 9000,
-  timeoutMs = publicMode ? 2200 : 2800,
+  maxPages = 50,
+  maxDepth = 3,
+  concurrency = publicMode ? 10 : 8,
+  timeBudgetMs = publicMode ? 18_000 : 14_000,
+  timeoutMs = publicMode ? 2800 : 3000,
   log = () => {}
 }) {
-  const effectiveMaxPages = Math.max(1, Math.min(publicMode ? 25 : 100, Number(maxPages) || (publicMode ? 25 : 50)));
+  const effectiveMaxPages = Math.max(1, Math.min(100, Number(maxPages) || 50));
   const crawlStartedAt = Date.now();
   const parsedRoot = new URL(rootUrl);
   const origin = parsedRoot.origin;
@@ -667,7 +667,7 @@ export async function crawlSameOriginSite({
   }
 
   // Step 3: Katana-style JS route extraction across all discovered same-origin bundles
-  const maxJsBundles = publicMode ? 6 : 12;
+  const maxJsBundles = 12;
   const scriptList = [...discoveredScripts].slice(0, maxJsBundles);
   if (scriptList.length > 0 && Date.now() - crawlStartedAt < timeBudgetMs + 2000) {
     await Promise.all(

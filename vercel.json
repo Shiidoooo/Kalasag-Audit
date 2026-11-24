@@ -4,7 +4,7 @@
   "outputDirectory": "public",
   "functions": {
     "api/audit.js": {
-      "maxDuration": 30
+      "maxDuration": 60
     },
     "api/export/html.js": {
       "maxDuration": 15

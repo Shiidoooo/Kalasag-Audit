@@ -2,6 +2,7 @@
   <img src="public/assets/kalasag-mark.svg" alt="Kalasag Audit Shield Emblem" width="84" height="84" />
   <h1>Kalasag Audit</h1>
   <p><strong>Zero-Dependency, Multi-Page Web Security &amp; Posture Auditor (Web UI · CLI · Vercel Serverless)</strong></p>
+  <p><strong>Live Demo:</strong> <a href="https://kalasag-audit.vercel.app">https://kalasag-audit.vercel.app</a></p>
 
   <p>
     <img src="https://img.shields.io/badge/Node.js-18%2B-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node.js 18+" />
@@ -52,7 +53,7 @@ Built purely on the Node.js standard library (`node:http`, `node:tls`, `node:net
 | Capability | Local Mode (`npm run ui` / CLI) | Public Cloud Mode (Vercel) |
 | --- | --- | --- |
 | **Target Scope** | Public websites, `localhost`, private LANs & staging | Public websites only (DNS-resolved **SSRF blocking** + redirect hop re-validation) |
-| **Multi-Page Site Crawl** | Up to **100 pages** (Depth 3) + 12 JS bundles | Up to **25 pages** (Depth 2) + 6 JS bundles |
+| **Multi-Page Site Crawl** | Up to **100 pages** (Depth 3) + 12 JS bundles | Up to **100 pages** (Depth 3) + 12 JS bundles |
 | **14 Core Security Modules** | Active | Active |
 | **DB/Admin Port Probe (#15)** | Active (10 ports; skip with `--no-services`) | Auto-disabled (`read-only`) |
 | **GET SQLi / XSS Check (#16)** | Active across root + crawled pages (`--no-injection` to skip) | Auto-disabled (`read-only`) |

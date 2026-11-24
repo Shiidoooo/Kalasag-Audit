@@ -103,6 +103,12 @@ const el = {
   engineStatus: document.getElementById('engine-status'),
   engineStatusLabel: document.getElementById('engine-status-label'),
   heroEyebrowText: document.getElementById('hero-eyebrow-text'),
+  heroSubtitleText: document.getElementById('hero-subtitle-text'),
+  statChecksVal: document.getElementById('stat-checks-val'),
+  statModeVal: document.getElementById('stat-mode-val'),
+  statModeLabel: document.getElementById('stat-mode-label'),
+  howStep1Desc: document.getElementById('how-step1-desc'),
+  howStep2Title: document.getElementById('how-step2-title'),
   historyBadge: document.getElementById('history-count-badge'),
 
   // Scanner controls
@@ -1191,8 +1197,17 @@ function applyRuntimeMode() {
   }
 
   if (isPublic) {
-    if (el.engineStatusLabel) el.engineStatusLabel.textContent = 'Cloud Ready';
+    if (el.engineStatusLabel) el.engineStatusLabel.textContent = 'Online';
     if (el.heroEyebrowText) el.heroEyebrowText.textContent = 'Live Cloud Scanner \u2022 14 Security Checks';
+    if (el.heroSubtitleText) {
+      el.heroSubtitleText.textContent =
+        'Paste any public website or API URL below. Kalasag Audit crawls same-origin pages and inspects SSL certificates, security headers, cookies, leaked files (.env, .git), forms, outdated scripts, and DNS protection, then gives you a clear grade and exact fixes.';
+    }
+    if (el.statChecksVal) el.statChecksVal.textContent = '14';
+    if (el.statModeVal) el.statModeVal.textContent = 'Private';
+    if (el.statModeLabel) el.statModeLabel.textContent = 'Browser-Only';
+    if (el.howStep1Desc) el.howStep1Desc.textContent = 'Works with live public websites (https://) and APIs — automatically crawls up to 100 same-origin pages.';
+    if (el.howStep2Title) el.howStep2Title.textContent = 'Smart 14-Point Inspection';
     if (el.targetUrlInput) el.targetUrlInput.placeholder = 'https://example.com';
     if (el.otpDrawer) el.otpDrawer.hidden = true;
     if (el.otpEnabled) el.otpEnabled.checked = false;
@@ -1204,14 +1219,8 @@ function applyRuntimeMode() {
     if (el.historyEmptyText) {
       el.historyEmptyText.textContent = 'Run your first website scan from the Scanner tab. Your last 25 reports are saved privately in your browser.';
     }
-    if (el.crawlMaxPages) {
-      el.crawlMaxPages.replaceChildren(
-        new Option('Quick (up to 12 pages)', '12'),
-        new Option('Deep Cloud (up to 25 pages)', '25', true, true)
-      );
-    }
   } else {
-    if (el.engineStatusLabel) el.engineStatusLabel.textContent = 'Local Ready';
+    if (el.engineStatusLabel) el.engineStatusLabel.textContent = 'Online';
     if (el.otpDrawer) el.otpDrawer.hidden = false;
   }
 }
@@ -1232,6 +1241,7 @@ async function checkEngineHealth() {
     applyRuntimeMode();
   } catch {
     el.engineStatus.classList.add('is-offline');
+    if (el.engineStatusLabel) el.engineStatusLabel.textContent = 'Offline';
   }
 }
 

@@ -42,7 +42,7 @@
       <div class="header-actions">
         <span class="engine-pill" id="engine-status" title="Kalasag Audit engine status">
           <span class="status-dot" aria-hidden="true"></span>
-          <span class="engine-pill-label" id="engine-status-label">Local Ready</span>
+          <span class="engine-pill-label" id="engine-status-label">Online</span>
         </span>
         <button type="button" class="icon-btn" id="theme-toggle" aria-label="Switch color theme" title="Switch light or dark theme">
           <svg class="icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
@@ -70,7 +70,7 @@
             <h1 id="scanner-heading" class="hero-title">
               Check any website for security gaps &mdash; <span class="text-gold">without false alarms</span>.
             </h1>
-            <p class="hero-subtitle">
+            <p class="hero-subtitle" id="hero-subtitle-text">
               Paste a website, API, or <code>localhost</code> link below. Kalasag Audit checks SSL certificates, security headers, cookies, leaked files (<code>.env</code>, <code>.git</code>), outdated scripts, and DNS protection, then gives you a clear grade and exact fixes.
             </p>
 
@@ -121,7 +121,7 @@
                 <select id="crawl-max-pages" class="select-input select-sm">
                   <option value="25">Standard (up to 25 pages)</option>
                   <option value="50" selected>Deep Crawl (up to 50 pages)</option>
-                  <option value="100" id="crawl-opt-100">Full Local Map (up to 100 pages)</option>
+                  <option value="100" id="crawl-opt-100">Full Site Map (up to 100 pages)</option>
                 </select>
                 <span class="field-help crawl-scope-note">Recursively crawls same-origin links, sitemaps &amp; JS routes (depth up to 3).</span>
               </div>
@@ -252,12 +252,12 @@
               <div class="emblem-caption">
                 <div class="emblem-stat-grid">
                   <div class="emblem-stat">
-                    <span class="stat-value">16</span>
+                    <span class="stat-value" id="stat-checks-val">16</span>
                     <span class="stat-label">Checks</span>
                   </div>
                   <div class="emblem-stat">
-                    <span class="stat-value">Local</span>
-                    <span class="stat-label">100% Private</span>
+                    <span class="stat-value" id="stat-mode-val">Local</span>
+                    <span class="stat-label" id="stat-mode-label">100% Private</span>
                   </div>
                   <div class="emblem-stat">
                     <span class="stat-value">A+&ndash;F</span>
@@ -274,11 +274,11 @@
           <div class="how-card">
             <span class="how-step mono">Step 1</span>
             <h2 class="how-title">Enter Any URL</h2>
-            <p class="how-desc">Works with live websites (<code>https://</code>), APIs, or local projects like <code>http://localhost:3000</code>.</p>
+            <p class="how-desc" id="how-step1-desc">Works with live websites (<code>https://</code>), APIs, or local projects like <code>http://localhost:3000</code>.</p>
           </div>
           <div class="how-card">
             <span class="how-step mono">Step 2</span>
-            <h2 class="how-title">Smart 16-Point Inspection</h2>
+            <h2 class="how-title" id="how-step2-title">Smart 16-Point Inspection</h2>
             <p class="how-desc">Checks SSL, security headers, cookies, leaked files, and DNS &mdash; verifying findings to prevent false alarms.</p>
           </div>
           <div class="how-card">
