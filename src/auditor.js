@@ -538,7 +538,7 @@ export class SecurityAuditor {
           // solely to read cert metadata and evaluate socket.authorizationError below.
           // No HTTP request or sensitive payload is transmitted over this socket.
           rejectUnauthorized: false,
-          timeout: this.publicMode ? 3000 : 4000
+          timeout: 6000
         },
         () => {
           handshakeComplete = true;
@@ -713,16 +713,28 @@ export class SecurityAuditor {
     let res;
     let finalUrl = this.targetUrl;
     let body = '';
+    // Generous 10s root timeout + 1 retry so slightly slow servers from cloud
+    // regions never falsely fail Phase 1 and skip headers/crawler/frontend checks.
+    const fetchRootOnce = () => safeFetch(
+      this.targetUrl,
+      {
+        method: 'GET',
+        signal: AbortSignal.timeout(10_000),
+        headers: { 'User-Agent': 'KalasagAudit/2.0' }
+      },
+      { publicMode: this.publicMode, dnsLookup: this.dnsLookup }
+    );
+
     try {
-      const fetched = await safeFetch(
-        this.targetUrl,
-        {
-          method: 'GET',
-          signal: AbortSignal.timeout(this.publicMode ? 4000 : 5000),
-          headers: { 'User-Agent': 'KalasagAudit/2.0' }
-        },
-        { publicMode: this.publicMode, dnsLookup: this.dnsLookup }
-      );
+      let fetched;
+      try {
+        fetched = await fetchRootOnce();
+      } catch (firstErr) {
+        if (firstErr?.code === 'SSRF_BLOCKED' || firstErr?.code === 'DNS_UNRESOLVED') {
+          throw firstErr;
+        }
+        fetched = await fetchRootOnce();
+      }
       res = fetched.res;
       finalUrl = fetched.finalUrl || res.url || this.targetUrl;
       body = await readTextBounded(res);
@@ -1500,7 +1512,7 @@ export class SecurityAuditor {
 
     let exposedArtifactCount = 0;
 
-    const probeTimeout = this.publicMode ? 2500 : 3000;
+    const probeTimeout = 4500;
     await Promise.all(probes.map(async (probe) => {
       try {
         const probeUrl = this.resolveAppUrl(probe.path);
@@ -1672,7 +1684,7 @@ export class SecurityAuditor {
         const { res } = await safeFetch(
           url,
           {
-            signal: AbortSignal.timeout(this.publicMode ? 2500 : 3500),
+            signal: AbortSignal.timeout(5000),
             headers: { 'User-Agent': 'KalasagAudit/2.0' }
           },
           { publicMode: this.publicMode, dnsLookup: this.dnsLookup }
