@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { exec } from 'node:child_process';
-import { createAppServer } from '../src/server.js';
+import { createAppServer } from '../src/localServer.js';
 
 const PORT = Number(process.env.PORT) || 3847;
 const HOST = process.env.HOST || '127.0.0.1';

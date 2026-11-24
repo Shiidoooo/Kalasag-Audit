@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import os from 'node:os';
 import path from 'node:path';
 import fs from 'node:fs/promises';
-import { createAppServer } from '../src/server.js';
+import { createAppServer } from '../src/localServer.js';
 import {
   isNonPublicIp,
   validateTargetUrl,
